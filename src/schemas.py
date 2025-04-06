@@ -5,7 +5,8 @@ from typing import List
 class PostSchema(BaseModel):
     content: str  
     user_id: int
-    model_config = ConfigDict(from_attributes=True)
+    class Config:
+        from_attributes = True  # Ensure compatibility with ORM
 
 # Schema for creating a new user
 class UserSchema(BaseModel):
@@ -50,3 +51,19 @@ class ShowUserSchema(BaseModel):
     email: str
     posts: List[ShowPostSchema] = []  # Default to an empty list if no posts exist
     model_config = ConfigDict(from_attributes=True)
+
+
+
+class Login(BaseModel):
+    username: str
+    password: str
+
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None

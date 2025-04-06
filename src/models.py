@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, CheckConstraint
-from database import Base
+from .database import Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column
 from sqlalchemy.sql.sqltypes import Text
