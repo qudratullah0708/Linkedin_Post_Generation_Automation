@@ -23,8 +23,8 @@ const PostDetail = () => {
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md mt-6">
-      <h2 className="text-3xl font-bold text-blue-800 mb-4">{post.title}</h2>
-      <p className="text-gray-700 leading-relaxed">{post.content}</p>
+      <h3 className="text-md font-bold text-blue-700 mb-4">{post.title}</h3>
+     {  <p className="text-gray-700 leading-relaxed">{post.content}</p> } 
 
       <div className="mt-6 flex gap-4">
         <button

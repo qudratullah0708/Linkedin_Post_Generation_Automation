@@ -2,19 +2,18 @@ from tavily import TavilyClient
 from groq import Groq
 import os
 from dotenv import load_dotenv
+import os
 
-# Load environment variables
-load_dotenv()
-
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))  # Adjust as needed
 # Get API keys
-tavily_api_key = os.getenv("TAVILY_API_KEY")
-model_api_key = os.getenv("GROQ_API_KEY")  # Ensure correct env var name
+model_api_key = os.getenv("GROQ_API_KEY")
+tavily_api_key = os.getenv("TAVILY_API_KEY")  # Ensure correct env var name
 
 # Ensure API keys are loaded correctly
-if not tavily_api_key:
-    raise ValueError("Tavily API key is missing. Set TAVILY_API_KEY in your .env file.")
 if not model_api_key:
     raise ValueError("Groq API key is missing. Set GROQ_API_KEY in your .env file.")
+if not tavily_api_key:
+    raise ValueError("Tavily API key is missing. Set TAVILY_API_KEY in your .env file.")
 
 # Initialize Tavily client
 tavily_client = TavilyClient(api_key=tavily_api_key)

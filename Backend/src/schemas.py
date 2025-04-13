@@ -5,9 +5,7 @@ from typing import List
 class PostSchema(BaseModel):
     title: str
     content: str  
-    user_id: int
-    class Config:
-        from_attributes = True  # Ensure compatibility with ORM
+    model_config = ConfigDict(from_attributes=True)  # Ensure compatibility with ORM
 
 # Schema for creating a new user
 class UserSchema(BaseModel):
@@ -40,6 +38,7 @@ from typing import Optional
 
 class ShowPostSchema(BaseModel):
     id: int
+    title: str
     content: str
     user_id: int  # Ensure this field is always populated
     creator: Optional[ShowUserSchemaBase] = None  # Allow None if it's not included

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.routers import posts, users, authentication
+from src.routers import posts, users, authentication, posting_api, generate_post
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -18,6 +18,8 @@ app.add_middleware(
 app.include_router(posts.router)
 app.include_router(users.router)
 app.include_router(authentication.router)
+app.include_router(posting_api.router)
+app.include_router(generate_post.router)
 
 
 

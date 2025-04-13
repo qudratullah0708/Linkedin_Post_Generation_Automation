@@ -7,8 +7,8 @@ const PostItem = ({ post }) => {
       to={`/protected/posts/${post.id}`}
       className="block bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-all border border-gray-200 mb-4 hover:bg-gray-50"
     >
-      <h3 className="text-xl font-semibold text-blue-800 mb-1">{post.title}</h3>
-      <p className="text-gray-600 truncate">{post.content}</p>
+      <h4 className="text-sm font-semibold text-blue-700 mb-1">{post.title}</h4>
+      {/* <p className="text-gray-600 truncate">{post.content}</p> */}
     </Link>
   );
 };

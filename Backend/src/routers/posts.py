@@ -21,16 +21,14 @@ router = APIRouter(
 
 @router.post("/", status_code=201)
 def create_post(request:PostSchema, db : Session=Depends(get_db), current_user: UserSchema = Depends(oauth2.get_current_user)):
-    # Check if the user exists
-    user = db.query(models.Users).filter(models.Users.id == request.user_id).first()
-    if not user:
-        raise HTTPException(status_code=400, detail="User does not exist")
-    return posts.create(request, db)
+    
+    return posts.create(request, current_user.id, db)
     
 
 @router.get("/", response_model=List[ShowPostSchema])
 def getposts(db:Session= Depends(get_db), current_user: UserSchema = Depends(oauth2.get_current_user)):
-   return posts.getposts(db)
+   
+   return posts.getposts(current_user.id,db)
 
 
 @router.get("/{id}", status_code=200, response_model=ShowPostSchema)

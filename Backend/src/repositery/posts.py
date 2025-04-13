@@ -6,26 +6,17 @@ from ..database import get_db
 # from . import post_content, posting_api
 
 
-def create(request:PostSchema, db : Session=Depends(get_db)):
+def create(request:PostSchema, user_id :int,db : Session=Depends(get_db)):
 
-        # Retrieve news and generate a LinkedIn post
-
-        # uncomment these lines for production only
-
-        # retrieved_content = RetrieveNews()
-        # post_content = generatePost(retrieved_content)
-        # new_post = models.Posts(content=post_content, user_id=request.user_id)
-
-        new_post = models.Posts(title=request.title, content=request.content, user_id=request.user_id)
-
+        new_post = models.Posts(title=request.title, content=request.content, user_id=user_id)
         db.add(new_post)
         db.commit()
         db.refresh(new_post)
         return new_post
 
 
-def getposts(db:Session= Depends(get_db)):
-   posts = db.query(models.Posts).all()
+def getposts(user_id: int, db: Session = Depends(get_db)):
+   posts = db.query(models.Posts).filter(models.Posts.user_id == user_id).all()
    if not posts:
         return []  # Ensure an empty list is returned instead of None
    return posts

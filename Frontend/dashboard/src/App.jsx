@@ -13,6 +13,7 @@ import PostForm from './components/PostForm';
 import PostDetail from './components/PostDetail';
 import DeletePostButton from './components/DeletePostButton';  // New component
 import UpdatePostForm from './components/UpdatePostForm';  // New component
+import CreateLinkedInPost from './components/CreateLinkedInPost'; //Import component
 
 const App = () => {
   return (
@@ -40,6 +41,8 @@ const App = () => {
           <Route path="posts/:id" element={<PostDetail />} />
           <Route path="posts/delete/:id" element={<DeletePostButton />} /> {/* Delete post route */}
           <Route path="posts/update/:id" element={<UpdatePostForm />} /> {/* Update post route */}
+          {/* ✅ New LinkedIn Post Generator Route */}
+          <Route path="linkedin" element={<CreateLinkedInPost />} />
         </Route>
       </Routes>
     </Router>

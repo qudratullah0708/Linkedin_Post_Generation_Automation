@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { LogOut, PlusCircle, FileText } from 'lucide-react';
+import { LogOut, PlusCircle, FileText, Link as LinkIcon } from 'lucide-react';
 
 const ProtectedPageLayout = () => {
   const navigate = useNavigate();
@@ -23,8 +23,7 @@ const ProtectedPageLayout = () => {
           <Link
             to="posts"
             className={`flex items-center gap-3 px-3 py-2 rounded-lg transition duration-150 
-              ${isActive('posts') && !isActive('new') ? 'bg-blue-600' : 'hover:bg-blue-600'}
-            `}
+              ${isActive('posts') && !isActive('new') ? 'bg-blue-600' : 'hover:bg-blue-600'}`}
           >
             <FileText size={18} /> All Posts
           </Link>
@@ -32,10 +31,18 @@ const ProtectedPageLayout = () => {
           <Link
             to="posts/new"
             className={`flex items-center gap-3 px-3 py-2 rounded-lg transition duration-150 
-              ${isActive('new') ? 'bg-blue-600' : 'hover:bg-blue-600'}
-            `}
+              ${isActive('new') ? 'bg-blue-600' : 'hover:bg-blue-600'}`}
           >
             <PlusCircle size={18} /> New Post
+          </Link>
+
+          {/* Add the new LinkedIn Post link */}
+          <Link
+            to="linkedin"
+            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition duration-150 
+              ${isActive('linkedin') ? 'bg-blue-600' : 'hover:bg-blue-600'}`}
+          >
+            <LinkIcon size={18} /> LinkedIn Post
           </Link>
         </nav>
 

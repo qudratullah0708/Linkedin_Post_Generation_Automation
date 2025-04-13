@@ -26,6 +26,10 @@ def createuser(
     password: str = Form(...),
     db: Session = Depends(get_db)
 ):
+    
+    email = email.strip().lower()
+
+
     # Check if user already exists
     user = db.query(models.Users).filter(models.Users.email == email).first()
     if user:
