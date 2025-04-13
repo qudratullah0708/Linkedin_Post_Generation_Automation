@@ -43,6 +43,7 @@ const PostList = () => {
             onPostDeleted={handlePostDelete}
           />
         ))
+        
       )}
     </div>
   );

@@ -2,5 +2,4 @@
 
 'run the following commmand'
 
-uvicorn repositery.users:app --reload
-uvicorn repositery.posts:app --reload
+uvicorn main:app --reload --port 9000

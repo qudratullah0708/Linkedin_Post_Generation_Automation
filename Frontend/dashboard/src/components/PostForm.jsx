@@ -101,21 +101,7 @@ const PostForm = ({ editMode = false }) => {
           ></textarea>
         </div>
 
-        <div>
-          <label htmlFor="user_id" className="block text-sm font-semibold text-gray-700">
-            User ID
-          </label>
-          <input
-            id="user_id"
-            name="user_id"
-            value={post.user_id}
-            onChange={handleChange}
-            placeholder="Enter your user ID"
-            required
-            className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 outline-none"
-          />
-        </div>
-
+        
         {/* Button to generate content */}
         <div className="text-center">
           <button
