@@ -2,4 +2,4 @@
 
 'run the following commmand'
 
-uvicorn main:app --reload --port 9000
+uvicorn main:app --reload --port 9000   ( From  Backend Directo )

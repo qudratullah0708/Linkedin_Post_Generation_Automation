@@ -14,6 +14,7 @@ import PostDetail from './components/PostDetail';
 import DeletePostButton from './components/DeletePostButton';  // New component
 import UpdatePostForm from './components/UpdatePostForm';  // New component
 import CreateLinkedInPost from './components/CreateLinkedInPost'; //Import component
+import PostEdit from './components/PostEdit'
 
 const App = () => {
   return (
@@ -37,8 +38,8 @@ const App = () => {
           {/* Post routes */}
           <Route path="posts" element={<PostList />} />
           <Route path="posts/new" element={<PostForm />} />
-          <Route path="posts/edit/:id" element={<PostForm editMode />} />
           <Route path="posts/:id" element={<PostDetail />} />
+          <Route path="posts/edit/:id" element={<PostEdit />} />
           <Route path="posts/delete/:id" element={<DeletePostButton />} /> {/* Delete post route */}
           <Route path="posts/update/:id" element={<UpdatePostForm />} /> {/* Update post route */}
           {/* ✅ New LinkedIn Post Generator Route */}
@@ -50,3 +51,5 @@ const App = () => {
 };
 
 export default App;
+
+

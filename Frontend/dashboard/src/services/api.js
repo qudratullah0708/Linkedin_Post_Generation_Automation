@@ -46,3 +46,29 @@ export const deletePost = async (id) => {
     headers: { Authorization: `Bearer ${token()}` },
   });
 };
+
+
+
+
+export const editLinkedInPost = async (content) => {
+  const res = await fetch(`${BASE_URL}/edit_post`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token()}`,
+    },
+    body: JSON.stringify({ content }),
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to edit post');
+  }
+
+  const data = await res.json();
+  return data.generated_post;
+};
+
+
+
+
+

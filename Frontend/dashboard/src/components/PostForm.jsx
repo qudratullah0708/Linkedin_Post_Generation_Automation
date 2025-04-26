@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createPost, updatePost, getPostById } from '../services/api';
 import { useNavigate, useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 const PostForm = ({ editMode = false }) => {
   const [post, setPost] = useState({ title: '', content: '', user_id: '' });
+  const [topic, setTopic] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,23 +23,34 @@ const PostForm = ({ editMode = false }) => {
   };
 
   const handleGenerateContent = async () => {
-    setLoading(true); // Set loading state to true
+    if (!topic.trim()) {
+      setError('Please enter a topic to generate content.');
+      return;
+    }
+
+    setError(null);
+    setLoading(true);
+
     try {
-      // Call the backend to generate post content
-      const response = await fetch('http://localhost:9000/generate_post');
+      const response = await fetch('http://localhost:9000/generate_post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ topic }),
+      });
+
       const data = await response.json();
 
       if (response.ok) {
-        // Set the generated content into the form
         setPost({ ...post, content: data.generated_post });
       } else {
-        throw new Error('Failed to generate content');
+        throw new Error(data.detail || 'Failed to generate content');
       }
     } catch (error) {
       setError('An error occurred while generating content.');
-    }
-    finally {
-      setLoading(false); // Set loading state to false after operation completes
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,7 +67,7 @@ const PostForm = ({ editMode = false }) => {
         await createPost(post);
         setSuccess('Post created successfully!');
       }
-      setTimeout(() => navigate('/protected/posts'), 1500); // Redirect after showing message
+      setTimeout(() => navigate('/protected/posts'), 1500);
     } catch (error) {
       setError('An error occurred. Please try again.');
     }
@@ -86,6 +99,21 @@ const PostForm = ({ editMode = false }) => {
         </div>
 
         <div>
+          <label htmlFor="topic" className="block text-sm font-semibold text-gray-700">
+            Topic
+          </label>
+          <input
+            id="topic"
+            name="topic"
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            placeholder="e.g., AI in Education, Real Estate Trends"
+            className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 outline-none"
+          />
+        </div>
+
+        {/* Editable Content */}
+        <div>
           <label htmlFor="content" className="block text-sm font-semibold text-gray-700">
             Content
           </label>
@@ -98,20 +126,28 @@ const PostForm = ({ editMode = false }) => {
             required
             rows="6"
             className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 outline-none"
-          ></textarea>
+          />
         </div>
 
-        
-        {/* Button to generate content */}
+        {/* Markdown Preview (Read-only) */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Content Preview
+          </label>
+          <div className="prose border border-gray-300 p-4 rounded-lg bg-gray-50 max-w-none">
+            <ReactMarkdown>{post.content}</ReactMarkdown>
+          </div>
+        </div>
+
         <div className="text-center">
           <button
             type="button"
             onClick={handleGenerateContent}
-            disabled={loading}  // Disable the button during loading
+            disabled={loading}
             className={`w-full ${loading ? 'bg-gray-400' : 'bg-green-600'} hover:${loading ? '' : 'bg-green-700'} text-white font-semibold py-3 rounded-lg transition duration-300 mb-4`}
-        > {loading ? 'Generating Post Content...' : 'Generate Content'}
-        </button>
-
+          >
+            {loading ? 'Generating Post Content...' : 'Generate Content from Topic'}
+          </button>
         </div>
 
         <div className="text-center">
